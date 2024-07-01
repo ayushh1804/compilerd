@@ -1,4 +1,4 @@
-const { CPP, C, PYTHON, JAVA, NODEJS, RUBY, PROMPTV1, PROMPTV2 } = require('../enums/supportedLanguages')
+const { CPP, C, PYTHON, JAVA, NODEJS, RUBY, PROMPTV1, PROMPTV2, GO, PHP, SWIFT, KOTLIN, SCALA } = require('../enums/supportedLanguages')
 const ONE_MB = 1024 // ulimit uses Kilobyte as base unit
 const ALLOWED_RAM = process.env.ALLOWED_RAM || 512
 
@@ -51,6 +51,42 @@ const LANGUAGES_CONFIG = {
     [PROMPTV2]: {
         model: 'gpt-3.5-turbo-1106',
     },
+    [GO]: {
+        compile: 'go build solution.go',
+        run: './solution',
+        timeout: 2,
+        filename: 'solution.go',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [PHP]: {
+        compile: 'php -l solution.php',
+        run: 'php solution.php',
+        timeout: 10,
+        filename: 'solution.php',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [SWIFT]: {
+        compile: 'swiftc -o solution solution.swift',
+        run: './solution',
+        timeout: 10,
+        filename: 'solution.swift',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [KOTLIN]: {
+        compile: 'kotlinc solution.kt -include-runtime -d solution.jar',
+        run: 'java -jar solution.jar',
+        timeout: 10,
+        filename: 'solution.kt',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+    [SCALA]: {
+        compile: 'scalac solution.scala',
+        run: 'scala Solution',
+        timeout: 10,
+        filename: 'solution.scala',
+        memory: ALLOWED_RAM * ONE_MB,
+    },
+
 }
 
 module.exports = { LANGUAGES_CONFIG }
